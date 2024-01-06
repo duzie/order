@@ -22,6 +22,7 @@
     .itemTable2
     {
         border-collapse: collapse;
+        page-break-before: always;
     }
     .itemTable2 td
     {

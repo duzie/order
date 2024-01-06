@@ -9,6 +9,7 @@
         border-collapse: collapse;
         border: none;
         margin-bottom: 5px;
+        page-break-before: always;
     }
     .itemTable td
     {

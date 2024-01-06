@@ -31,7 +31,7 @@ public class ItemDetailController {
 
     @Autowired
     private StockNumberService stockNumberService;
-    private final static String titles[] = new String[]{"Cartoon Number", "PART NO", "Model", "Color", "Capacity", "IMEI Number", "SN Number", "Date"};
+    private final static String titles[] = new String[]{"Carton Number", "PART NO", "Model", "Color", "Capacity", "IMEI Number", "SN Number", "Date"};
 
     @Autowired
     private ConfService confService;
@@ -92,7 +92,7 @@ public class ItemDetailController {
             ItemDetail itemDetail = new ItemDetail();
             itemDetail.setSn(sn);
             itemDetail.setQty(1);
-            itemDetail.setModel("apple iphone x");
+            itemDetail.setModel("Apple iPhone X");
             itemDetail.setColor("red");
             itemDetail.setCapacity("64GB");
             itemDetail.setBoxTotal("213");
