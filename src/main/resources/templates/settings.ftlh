@@ -5,7 +5,7 @@
     <title>Settings</title>
     <style>
         table#table1 {
-            width: 100%;
+            width: 1100px;
             border-collapse: collapse;
             font-family: Arial, sans-serif;
         }
@@ -18,6 +18,7 @@
             border: 1px solid #ccc;
             padding: 8px;
             text-align: left;
+            font-size: 12px;
         }
         table#table1 th {
             background-color: #f2f2f2;
@@ -25,11 +26,6 @@
         }
         table#table1 tr:nth-child(even) {
             background-color: #f2f2f2;
-        }
-
-        .xxx{
-            width: 181.417323px;
-            height: 50.154331px;
         }
 
         table#table2 {
@@ -95,8 +91,8 @@
     Capacity <input id="capacity">
     <button id="add">Add</button>
     <button onclick="location.href='print-settings'"> 打印设置</button>
+    <button onclick="location.href='/'" style="margin-left: 20px">返回</button>
 </p>
-<p style="text-align: right"><button onclick="location.href='/'">返回</button></p>
 <table id="table1">
     <thead>
     <tr>

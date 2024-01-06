@@ -14,13 +14,26 @@
         {
             border: solid #000 1px;
             padding: 5px;
+            font-size: 12px;
+        }
+        #itemTable td input
+        {
+            width: 50px;
+        }
+        #itemTable td .input6
+        {
+            width: 90px;
+        }
+        #itemTable td .w100
+        {
+            width: 130px;
         }
     </style>
 </head>
 <body>
 <h1>Packing List</h1>
 <button id="save">Save</button>
-<p style="text-align: right"><button onclick="location.href='/'">返回</button></p>
+<button onclick="location.href='/'" style="margin-left: 30px">返回</button>
 <table>
     <tr>
         <td>Pl No:</td>
@@ -40,21 +53,21 @@
     </tr>
     <tr>
         <td>Look Up:</td>
-        <td colspan="3"><input size="80"  id="lookUp"></td>
+        <td colspan="3"><input size="80"  id="lookUp" value="Room 05, 10/F, Comweb Plaza, 12 Cheung Yue Street, Cheung Sha Wan, Kowloon, Hong Kong"></td>
     </tr>
     <tr>
         <td>Other:</td>
-        <td colspan="3"><input size="80"  id="other"></td>
+        <td colspan="3"><input size="80"  id="other" value="Tel: (852) 2439 9010 Fax: (852) 2439 6462"></td>
     </tr>
 </table>
 <div style="width: 1200px">
 <fieldset style="float: left;">
     <legend>Customer</legend>
-    <table>
+    <table style="width: 48%">
         <tr>
             <td>Company:</td>
             <td><input id="company"></td>
-            <td>code:</td>
+            <td>Code:</td>
             <td><input id="code"></td>
         </tr>
         <tr>
@@ -79,10 +92,10 @@
 </fieldset>
 <fieldset style="float:right;">
     <legend>Deliverv To:</legend>
-    <table>
+    <table style="width: 48%">
         <tr>
             <td>Company:</td>
-            <td colspan="3"><input id="dcompany" size="80"></td>
+            <td colspan="3"><input id="dcompany" size="60"></td>
         </tr>
         <tr>
             <td>Address:</td>
@@ -110,7 +123,7 @@
 <table id="itemTable" >
     <tr>
         <td>Carton No.</td>
-        <td width="200">PRODUCT CODE</td>
+        <td>PRODUCT CODE</td>
         <td width="350">DESCRIPTION</td>
         <td>Total Qty(pcs)</td>
         <td>N.W(Kgs)</td>
@@ -130,7 +143,7 @@
        stockNumberSelect = '<select>'
        for(i = 0; i < data.length; i++){
             stockNumberSelect += '<option sku="'+ data[i].skuNumber+'" value="'+ data[i].model + ' ' + data[i].capacity + ' ' + data[i].color + '(Used)A+">';
-            stockNumberSelect += data[i].model;
+            stockNumberSelect += data[i].skuNumber;
             stockNumberSelect += '</option>'
        }
        stockNumberSelect += '</>select>'
@@ -140,12 +153,12 @@
         var item = $('#itemTable tr').length;
         var line = '<tr>'+
                     '<td><input></td>'+
-                    '<td>'+ stockNumberSelect +'</td>'+
+                    '<td class="w100">'+ stockNumberSelect +'</td>'+
                     '<td></td>'+
                     '<td><input></td>'+
                     '<td><input></td>'+
                     '<td><input></td>'+
-                    '<td><input></td>'+
+                    '<td><input class="input6"></td>'+
                     '<td><button>Delete</button></td>'+
                     '</tr>';
         line = $(line);
