@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: root
+    password: test
+    url: jdbc:h2:file:~/orderDB
+  h2:
+    console:
+      enabled: true
+logging:
+  level:
+    com.p.order.mapper: debug
+
+

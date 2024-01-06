@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Packing List</title>
+<style>
+    .so
+    {
+        border-collapse: collapse;
+        border: none;
+        width: 100%;
+    }
+    .so td
+    {
+        border: solid #000 1px;
+        padding: 5px;
+    }
+</style>
+</head>
+<body>
+<p></p>
+<div style="position: absolute;top: 20px"><img src="logo.jpg" style="width: 15%;float: left"></div>
+<table style="width: 100%">
+    <tr>
+        <td colspan="2" style="text-align: center; font-weight: bold;font-size: 22px;height: 70px;">
+            DGM(HK) LTD</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="so" width="300">
+                <tr>
+                    <td>Customer (<span id="customer">customer</span>)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span id="address">address</span><br>
+                        <span id="address2">address2</span><br>
+                        <span id="address3">address3</span><br>
+                        <span id="atten">atten</span><br>
+                        <span id="tel">tel</span><br>
+                        <span id="fax">fax</span><br>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="vertical-align: top;float: right">
+            <table>
+                <tr>
+                    <td>Document No. </td>
+                    <td><span id="documentNo">111</span></td>
+                </tr>
+                <tr>
+                    <td>Date </td>
+                    <td><span id="date">2023-01-01</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<table style="width: 100%">
+    <tr>
+        <td style="text-align: center; font-weight: bold;font-size: 22px;">PACKING LIST</td>
+    </tr>
+    <tr>
+    <td>
+        <table class="so" id="data-list">
+    <tr>
+        <td>ITEM</td>
+        <td>PRODUCT CODE & DESCRIPTION</td>
+        <td style="text-align: center">QTY/<br>CARTON</td>
+        <td style="text-align: center">NO.OF<br>CARTON</td>
+        <td style="text-align: center">TOTAL</td>
+        <td style="text-align: center">CARTON<br>NO.</td>
+        <td style="text-align: center">CARTON<br>DIMENTION<br>(cm)</td>
+        <td style="text-align: center">GROSS<br>WEIGHT<br>(KG)<br>/CARTON</td>
+        <td style="text-align: center">TOTAL<br>WEIGHT<br>(KG)</td>
+    </tr>
+</table>
+    </td>
+    </tr>
+</table>
+<p id="remark1"></p>
+<p id="remark2"></p>
+<p id="remark3"></p>
+<p></p>
+<p></p>
+<span style="text-align: center; font-weight: bold;font-size: 22px">DGM(HK) LTD</span>
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script>
+    $(function(){
+        var data = localStorage.getItem("data")
+        data = JSON.parse(data)
+        $('#documentNo').html(data.documentNo);
+        $('#date').html(data.date);
+        $('#remark1').html(data.remark1);
+        $('#remark2').html(data.remark2);
+        $('#remark3').html(data.remark3);
+        $('#customer').html(data.customer);
+        $('#atten').html(data.atten);
+        $('#address').html(data.address);
+        $('#address2').html(data.address2);
+        $('#address3').html(data.address3);
+        $('#tel').html(data.tel);
+        $('#fax').html(data.fax);
+
+        for(i = 0; i < data.list.length; i++){
+            var detail = data.list[i];
+            var line = '<tr>'+
+                        '<td>'+ detail.a +'</td>'+
+                        '<td>'+ detail.b + '<br>' + detail.c +'</td>'+
+                        '<td>'+ detail.d +'</td>'+
+                        '<td>'+ detail.e +'</td>'+
+                        '<td>'+ detail.f +'</td>'+
+                        '<td>'+ detail.g +'</td>'+
+                        '<td>'+ detail.h +'</td>'+
+                        '<td>'+ detail.i +'</td>'+
+                        '<td>'+ detail.j +'</td>'+
+                        '</tr>';
+            $('#data-list tbody').append(line);
+        }
+        window.print();
+    });
+
+</script>
+</html>

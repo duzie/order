@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JsBarcode Example</title>
+	<script src="JsBarcode.all.js"></script>
+</head>
+<body>
+    <form id="barcodeForm">
+        <label for="count">条码数量：</label>
+        <input type="number" id="count" name="count" min="1" value="1">
+        <br>
+        <label for="format">条码类型：</label>
+        <select id="format" name="format">
+            <option value="Code128">Code 128</option>
+            <option value="EAN-13">EAN-13</option>
+            <option value="UPC-A">UPC-A</option>
+        </select>
+        <br>
+        <button type="button" onclick="generateBarcode()">生成条形码</button>
+    </form>
+    <div id="barcodeContainer"></div>
+    <script src="main.js"></script>
+	
+	<div>
+		<img id="barcode1"/>
+		<img id="barcode2"/>
+		<img id="barcode3"/>
+	</div>
+</body>
+</html>

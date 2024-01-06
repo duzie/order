@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Packing List</title>
+    <style>
+        #itemTable
+        {
+            border-collapse: collapse;
+            border: none;
+        }
+        #itemTable td
+        {
+            border: solid #000 1px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Packing List</h1>
+<button id="save">Save</button>
+<p style="text-align: right"><button onclick="location.href='/'">返回</button></p>
+<table>
+    <tr>
+        <td>Document No:</td>
+        <td><input id="documentNo"></td>
+        <td>Date:</td>
+        <td><input id="date"></td>
+    </tr>
+    <tr>
+        <td>Remark1:</td>
+        <td><input id="remark1"></td>
+        <td>Remark2:</td>
+        <td><input id="remark2"></td>
+    </tr>
+    <tr>
+        <td>Remark3:</td>
+        <td colspan="3"><input size="80"  id="remark3"></td>
+    </tr>
+</table>
+<fieldset>
+    <legend>Customer</legend>
+    <table>
+        <tr>
+            <td>Customer:</td>
+            <td><input id="customer"></td>
+            <td>Atten:</td>
+            <td><input id="atten"></td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td><input id="address"></td>
+            <td>Tel:</td>
+            <td><input id="tel"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input id="address2"></td>
+            <td>Fax:</td>
+            <td><input id="fax"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input id="address3"></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</fieldset>
+
+<button id='itemAdd'>ItemAdd</button>
+<table id="itemTable" >
+    <tr>
+        <td>ITEM</td>
+        <td>PRODUCT CODE</td>
+        <td width="100">DESCRIPTION</td>
+        <td>QTY/CARTON</td>
+        <td>NO.OF CARTON</td>
+        <td>TOTAL</td>
+        <td>CARTON NO</td>
+        <td>CARTON DIMENTION</td>
+        <td>GROSS WEIGTH</td>
+        <td>TOTAL WEIGTH</td>
+        <td>Delete</td>
+    </tr>
+</table>
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+</html>
+
+
+<script>
+    var stockNumberSelect;
+    $.get("/stock-number/all",function(data){
+       stockNumberSelect = '<select>'
+       for(i = 0; i < data.length; i++){
+            stockNumberSelect += '<option sku="'+ data[i].skuNumber+'" value="'+ data[i].model + ' ' + data[i].capacity + ' ' + data[i].color + '(Used)A+">';
+            stockNumberSelect += data[i].model;
+            stockNumberSelect += '</option>'
+       }
+       stockNumberSelect += '</>select>'
+    })
+    $('#itemAdd').click(itemAdd);
+    function itemAdd(){
+        var item = $('#itemTable tr').length;
+        var line = '<tr>'+
+                    '<td>'+ item +'</td>'+
+                    '<td>'+ stockNumberSelect +'</td>'+
+                    '<td></td>'+
+                    '<td><input></td>'+
+                    '<td><input></td>'+
+                    '<td><input></td>'+
+                    '<td><input></td>'+
+                    '<td><input></td>'+
+                    '<td><input></td>'+
+                    '<td><input></td>'+
+                    '<td><button>Delete</button></td>'+
+                    '</tr>';
+        line = $(line);
+        line.find('select').change(function(){
+            var val = $(this).val();
+            $(this).parent().next().html(val);
+        });
+        line.find('button').click(function(){
+            $(this).parent().parent().remove();
+            var length = $('#itemTable tr').length;
+            for(i = 1; i < length; i++){
+               $('#itemTable tr').eq(i).find('td').eq(0).html(i);
+            }
+        });
+        $("#itemTable tbody").append(line);
+        line.find('select').change();
+    }
+
+    $('#save').click(function(){
+        var data = {};
+        data.documentNo = $('#documentNo').val();
+        data.date = $('#date').val();
+        data.remark1 = $('#remark1').val();
+        data.remark2 = $('#remark2').val();
+        data.remark3 = $('#remark3').val();
+        data.customer = $('#customer').val();
+        data.atten = $('#atten').val();
+        data.address = $('#address').val();
+        data.address2 = $('#address2').val();
+        data.address3 = $('#address3').val();
+        data.tel = $('#tel').val();
+        data.fax = $('#fax').val();
+
+        var length = $('#itemTable tr').length;
+        var list = [];
+        for(i = 1; i < length; i++){
+           var line = {};
+           line.a = $('#itemTable tr').eq(i).find('td').eq(0).html();
+           line.b = $('#itemTable tr').eq(i).find('option:selected').attr('sku');
+           line.c = $('#itemTable tr').eq(i).find('td').eq(2).html();
+           line.d = $('#itemTable tr').eq(i).find('td').eq(3).find('input').val();
+           line.e = $('#itemTable tr').eq(i).find('td').eq(4).find('input').val();
+           line.f = $('#itemTable tr').eq(i).find('td').eq(5).find('input').val();
+           line.g = $('#itemTable tr').eq(i).find('td').eq(6).find('input').val();
+           line.h = $('#itemTable tr').eq(i).find('td').eq(7).find('input').val();
+           line.i = $('#itemTable tr').eq(i).find('td').eq(8).find('input').val();
+           line.j = $('#itemTable tr').eq(i).find('td').eq(9).find('input').val();
+           list.push(line);
+        }
+        data.list = list;
+        localStorage.setItem("data",JSON.stringify(data));
+        location.href = 'packing-list-print.html';
+    });
+</script>

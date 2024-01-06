@@ -1,0 +1,32 @@
+
+POST http://localhost:8080/stock-number/list
+Content-Type: application/json
+
+{
+  "current": 1,
+  "size": 5
+}
+
+###
+POST http://localhost:8080/stock-number/save
+Content-Type: application/json
+
+{
+  "model": "CPO-1",
+  "skuNumber": "12321",
+  "description": "apple phone"
+}
+
+###
+POST http://localhost:8080/stock-number/update
+Content-Type: application/json
+
+{
+  "id": "8b2ac3a4-021f-45c8-959d-fd17317e8f04",
+  "model": "CPO2",
+  "skuNumber": "12321",
+  "description": "apple phone"
+}
+
+###
+GET http://localhost:8080/stock-number/remove/8eeac247-26fe-4d7b-9232-b26c1d508a50

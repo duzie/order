@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+        table#table1 {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        table#table1 th {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+		table#table1 td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        table#table1 th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        table#table1 tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+		
+		.xxx{
+			width: 181.417323px;
+			height: 50.154331px;
+		}
+		
+		table#table2 {
+			width:377.952756px;
+			height:566.929134px;
+			margin-top: 7.559055;
+			margin-bottom: 7.559055;
+			margin-left: 7.559055;
+			margin-right: 7.559055;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+		table#table2 th {
+            border: 0.1px solid #ccc;
+            padding: 0.1px;
+            text-align: left;
+        }
+		
+		table#table2 td {
+            border: 0.1px solid #ccc;
+            padding: 0.1px;
+            text-align: left;
+        }
+		
+		
+		
+		.overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .popup {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .close-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+	<script src="JsBarcode.all.js"></script>
+	
+	<script>
+		Number.prototype.zeroPadding = function(){
+			var ret = "" + this.valueOf();
+			return ret.length == 1 ? "0" + ret : ret;
+		};
+		
+		function snChange() {
+            var productNo = document.getElementById("productNo");
+			var productNos = document.querySelectorAll('td.productNo')
+			for (var i = 0; i < productNos.length; i++) {
+				if (productNos[i].innerHTML == "待扫描") {
+					productNos[i].innerHTML = productNo.value;
+					break;
+				}
+			}
+			var product_imei = document.getElementById("product_imei");
+			var product_imeis = document.querySelectorAll('td.product_imei')
+			for (var i = 0; i < product_imeis.length; i++) {
+				if (product_imeis[i].innerHTML == "待扫描") {
+					product_imeis[i].innerHTML = product_imei.value;
+					break;
+				}
+			}
+			var product_sn = document.getElementById("product_sn");
+			var product_sns = document.querySelectorAll('td.product_sn')
+			for (var i = 0; i < product_sns.length; i++) {
+				if (product_sns[i].innerHTML == "待扫描") {
+					product_sns[i].innerHTML = product_sn.value;
+					break;
+				}
+			}
+			//alert(productNo.value+"：已记录到表格，请扫描明细");
+			product_imei.value = "";
+			product_sn.value = "";
+        }
+		
+		function sctm(){
+			var product_imeis = document.querySelectorAll('td.product_imei')
+			for (var i = 0; i < product_imeis.length; i++) {
+				var barcodeId = "#barcode" + (i+1);
+				if (product_imeis[i].innerHTML != "待扫描") {
+					JsBarcode(barcodeId, product_imeis[i].innerHTML);
+				}
+			}
+			
+		}
+	</script>
+	
+
+	<script>
+		function openOverlay() {
+			document.getElementById('overlay').style.display = 'block';
+		}
+
+		function closeOverlay() {
+			document.getElementById('overlay').style.display = 'none';
+		}
+
+		document.getElementById('overlay').addEventListener('mousedown', function (e) {
+			const offsetX = e.clientX - this.offsetLeft;
+			const offsetY = e.clientY - this.offsetTop;
+
+			document.addEventListener('mousemove', onMouseMove);
+			document.addEventListener('mouseup', onMouseUp);
+
+			function onMouseMove(e) {
+				this.style.left = e.clientX - offsetX + 'px';
+				this.style.top = e.clientY - offsetY + 'px';
+			}
+
+			function onMouseUp() {
+				document.removeEventListener('mousemove', onMouseMove);
+				document.removeEventListener('mouseup', onMouseUp);
+			}
+		});
+	</script>
+
+</head>
+<body>
+<!-- <td>1</td> -->
+			<!-- <td class="productNo">CPO-A13PM256GRA+</td> -->
+			<!-- <td class="product_imei">35678900234234</td> -->
+			<!-- <td class="product_sn">GHSKSKSLSLLLSL</td> -->
+
+<div class="overlay" id="overlay">
+	<div class="popup">
+		<h2>扫描条码</h2>
+		<p>
+			桌面标签：
+			<input type="text" id="productNo" placeholder="扫描后会自动填充到表格" />
+		</p>
+		<p>
+			IMEI：
+			<input type="text" id="product_imei" placeholder="扫描后会自动填充到表格" onchange="imeiChange()"/>
+		</p>
+		<p>
+			S/N：
+			<input type="text" id="product_sn" placeholder="扫描后会自动填充到表格" onchange="snChange()"/>
+		</p>
+		<span>
+			明细会根据桌面上的产品标签自动填充表格标签（40个）
+		</span>
+		<br><br>
+		
+		<button class="close-btn" onclick="closeOverlay()">关闭</button>
+	</div>
+</div>
+
+<button onclick="openOverlay()">开始扫描</button>
+<button onclick="sctm()">生成条码</button>
+
+	
+	
+	
+
+
+<table id="table1">
+	<thead>
+		  <tr>
+			<th>ITEM</th>
+			<th>Product</th>
+			<th>IMEI</th>
+			<th>S/N</th>
+			<th>ITEM</th>
+			<th>Product</th>
+			<th>IMEI</th>
+			<th>S/N</th>
+		  </tr>
+	</thead>
+	<tbody>
+		  <tr>
+			<td>1</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>2</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>3</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>4</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>5</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>6</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>7</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>8</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>9</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>10</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>11</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>12</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>13</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>14</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>15</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>16</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>17</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>18</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+		  <tr>
+			<td>19</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+			<td>20</td>
+			<td class="productNo">待扫描</td>
+			<td class="product_imei">待扫描</td>
+			<td class="product_sn">待扫描</td>
+		  </tr>
+	</tbody>
+</table>
+
+
+
+<table id="table2">
+  <tr>
+    <th colspan="2" style="height:50.154331px">
+		&nbsp;&nbsp;Serial Number:
+	</th>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode1"/>
+		<script>
+			JsBarcode("#barcode1", "sdfsdfsdfds",{displayValue:true,fontSize:20});
+		</script>
+	</td>
+	<td>
+		<img class="xxx" id="barcode2"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode3"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode4"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode5"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode6"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode7"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode8"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode9"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode10"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode11"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode12"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode13"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode14"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode15"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode16"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode17"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode18"/>
+	</td>
+  </tr>
+  <tr>
+    <td>
+		<img class="xxx" id="barcode19"/>
+	</td>
+	<td>
+		<img class="xxx" id="barcode20"/>
+	</td>
+  </tr>
+ </table>
+
+
+</body>
+</html>
