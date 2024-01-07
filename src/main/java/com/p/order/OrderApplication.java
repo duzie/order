@@ -43,6 +43,12 @@ public class OrderApplication {
             ScriptUtils.executeSqlScript(dataSource.getConnection(), resource);
             file.createNewFile();
         }
+        try {
+            String url = "http://localhost:8080";
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+        } catch (Exception e) {
+
+        }
     }
 
     @Bean
