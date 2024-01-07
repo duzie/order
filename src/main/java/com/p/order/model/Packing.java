@@ -56,7 +56,7 @@ public class Packing {
         int sum = groupList.stream().mapToInt(PackItem::getSize).sum();
         BigDecimal b = new BigDecimal(sum).divide(new BigDecimal(1000000));
         totalSize = String.format("%.2f", b);
-        return splitList(list, 20);
+        return splitList(list, 22);
 
     }
 

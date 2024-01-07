@@ -22,7 +22,6 @@
     .itemTable2
     {
         border-collapse: collapse;
-        page-break-before: always;
     }
     .itemTable2 td
     {
@@ -35,7 +34,7 @@
 
 <body>
 <#list 1..page as i>
-<table class="itemTable2">
+<table class="itemTable2" style="page-break-before: always;">
     <tr>
         <td style="width: ${print.modelWidth}">Model</td>
         <td style="width: ${print.colorWidth}">Color</td>

@@ -18,7 +18,7 @@
         border-collapse: collapse;
         border: none;
         width: 100%;
-        height: 170px;
+        height: 130px;
     }
     .so td
     {
@@ -128,10 +128,10 @@
                                 <td></td>
                                 <td>${data.address2}</td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td>${data.address3}</td>
-                            </tr>
+<#--                            <tr>-->
+<#--                                <td></td>-->
+<#--                                <td>${data.address3}</td>-->
+<#--                            </tr>-->
                             <tr>
                                 <td>Contact:</td>
                                 <td>${data.contact}</td>
@@ -165,10 +165,10 @@
                                 <td></td>
                                 <td>${data.daddress2}</td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td>${data.daddress3}</td>
-                            </tr>
+<#--                            <tr>-->
+<#--                                <td></td>-->
+<#--                                <td>${data.daddress3}</td>-->
+<#--                            </tr>-->
                             <tr>
                                 <td>Contact:</td>
                                 <td>${data.dcontact}</td>
@@ -234,7 +234,7 @@
     </table>
 
     <div style="font-weight: bold;font-size: 22px">DGM(HK) LTD</div>
-    <div style="font-weight: bold;font-size: 12px;text-decoration: overline;margin-top: 40px">Authorized Signature&Stamp</div>
+    <div style="font-weight: bold;font-size: 12px;text-decoration: overline;margin-top: 80px">Authorized Signature&Stamp</div>
 </#if>
 </div>
 </#list>
