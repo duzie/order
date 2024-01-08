@@ -51,8 +51,10 @@ public class Packing {
             list.stream().filter(p -> p.getA().equals(carton)).findFirst()
                     .ifPresent(groupList::add);
         }
-        totalNw = groupList.stream().mapToInt(g -> Integer.parseInt(g.getE())).sum() + "";
-        totalGw = groupList.stream().mapToInt(g -> Integer.parseInt(g.getF())).sum() + "";
+        double sumNw = groupList.stream().mapToDouble(g -> Double.parseDouble(g.getE())).sum();
+        totalNw = String.format("%.2f", sumNw);
+        double sumGw = groupList.stream().mapToDouble(g -> Double.parseDouble(g.getF())).sum();
+        totalGw = String.format("%.2f", sumGw);
         int sum = groupList.stream().mapToInt(PackItem::getSize).sum();
         BigDecimal b = new BigDecimal(sum).divide(new BigDecimal(1000000));
         totalSize = String.format("%.2f", b);

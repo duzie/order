@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -28,18 +30,20 @@ public class PackItem {
         this.d = d;
     }
 
-    public void setE(String e) {
+    public String getE() {
         if (e != null) {
             e = e.trim();
+            e = String.format("%.2f", new BigDecimal(e));
         }
-        this.e = e;
+        return e;
     }
 
-    public void setF(String f) {
+    public String getF() {
         if (f != null) {
             f = f.trim();
+            f = String.format("%.2f", new BigDecimal(f));
         }
-        this.f = f;
+        return f;
     }
 
     public PackItem(String a, String b, String c, String d, String e, String f, String g) {

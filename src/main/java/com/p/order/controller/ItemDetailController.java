@@ -202,7 +202,7 @@ public class ItemDetailController {
             }
         }
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename=".concat(orderNo + ".xlsx"));
+        response.setHeader("Content-Disposition", "attachment;filename=".concat(orderNo + " SN.xlsx"));
         workbook.write(response.getOutputStream());
     }
 

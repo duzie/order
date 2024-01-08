@@ -54,7 +54,7 @@
         margin-top: 15px;
         border-collapse: collapse;
         border: none;
-        width: 100%;
+        width: 99.88%;
     }
     .data-list .title
     {
@@ -209,11 +209,11 @@
     </#list>
     <#if !l_has_next>
         <tr style="font-weight: bold;">
-            <td colspan="2" ><div style="float:left;">Total (${data.totalCartons} Cartons)</div> <div style="float: right">Total:</div></td>
+            <td colspan="2" ><div style="float:left;">Total (${data.totalCartons} Cartons)</div> <div style="float: right">Total : &nbsp;</div></td>
             <td>${data.totalQty}</td>
             <td>${data.totalNw}</td>
             <td>${data.totalGw}</td>
-            <td>${data.totalSize}</td>
+            <td>${data.totalSize} CBM</td>
         </tr>
     </#if>
 </table>
