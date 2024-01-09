@@ -168,10 +168,6 @@
         });
         line.find('button').click(function(){
             $(this).parent().parent().remove();
-            var length = $('#itemTable tr').length;
-            for(i = 1; i < length; i++){
-               $('#itemTable tr').eq(i).find('td').eq(0).html(i);
-            }
         });
         $("#itemTable tbody").append(line);
         line.find('select').change();
