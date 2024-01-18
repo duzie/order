@@ -26,6 +26,7 @@ public class Packing {
     private String contact = "";
     private String tel = "";
     private String dcompany = "";
+    private String dcompany1 = "";
     private String daddress1 = "";
     private String daddress2 = "";
     private String daddress3 = "";
@@ -58,7 +59,7 @@ public class Packing {
         int sum = groupList.stream().mapToInt(PackItem::getSize).sum();
         BigDecimal b = new BigDecimal(sum).divide(new BigDecimal(1000000));
         totalSize = String.format("%.2f", b);
-        return splitList(list, 22);
+        return splitList(list, 18);
 
     }
 

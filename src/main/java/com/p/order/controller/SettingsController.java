@@ -7,12 +7,16 @@ import com.p.order.service.StockNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class SettingsController {
@@ -25,8 +29,13 @@ public class SettingsController {
 
     @GetMapping("settings/list")
     @ResponseBody
-    public List<StockNumber> list() {
-        return stockNumberService.list();
+    public Map<String, Object> list() {
+        List<StockNumber> list = stockNumberService.list();
+        List<String> modelList = list.stream().map(StockNumber::getModel).distinct().collect(Collectors.toList());
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);
+        map.put("modelList", modelList);
+        return map;
     }
 
     @GetMapping("settings")
@@ -100,7 +109,8 @@ public class SettingsController {
         pk.setContact("Mr Roberto Prisco");
         pk.setTel("+39 123456");
 
-        pk.setDcompany("Lenca Logistics B.V. C/O :Onyx Trade SRL");
+        pk.setDcompany("Lenca Logistics B.V. ");
+        pk.setDcompany1("C/O :Onyx Trade SRL");
         pk.setDaddress1("Kopraweg 3, 1047 BP Amsterdam");
         pk.setDaddress2("The Netherlands");
         pk.setDaddress3("test");

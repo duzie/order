@@ -104,9 +104,16 @@ public class ItemDetailController {
     @PostMapping("/save")
     @ResponseBody
     public Map<String, String> save(@RequestBody List<ItemDetail> list) {
+        Map<String, String> map = new HashMap<>();
         list = list.stream().filter(l -> !l.getProductNo().equals("待扫描")).collect(Collectors.toList());
         if (list.size() == 0) {
-            return null;
+            map.put("error", "没有条码数据");
+            return map;
+        }
+
+        if (list.size() != Integer.parseInt(list.get(0).getBoxTotal())) {
+            map.put("error", "装箱数量(" + list.get(0).getBoxTotal() + ")和扫码数量(" + list.size() + ")不一致");
+            return map;
         }
         List<StockNumber> stockNumberList = stockNumberService.list();
         String batchNo = UUID.randomUUID().toString();
@@ -132,7 +139,6 @@ public class ItemDetailController {
         }
 
         itemDetailService.saveBatch(list);
-        Map<String, String> map = new HashMap<>();
         map.put("batchNo", batchNo);
         return map;
     }

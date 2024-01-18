@@ -18,7 +18,7 @@
         border-collapse: collapse;
         border: none;
         width: 100%;
-        height: 130px;
+        height: 140px;
     }
     .so td
     {
@@ -73,8 +73,8 @@
     .remark{
         font-weight: bold;
         font-size: 13px;
-        margin-top: 20px;
-        margin-bottom: 30px;
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
 </style>
 </head>
@@ -155,7 +155,10 @@
                         <table>
                             <tr>
                                 <td style="width: 70px">Company:</td>
-                                <td>${data.dcompany}</td>
+                                <td>
+                                    ${data.dcompany}<br>
+                                    ${data.dcompany1}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Address:</td>
@@ -217,6 +220,10 @@
         </tr>
     </#if>
 </table>
+
+<#if l_has_next>
+    <span style="font-size: 12px">To be continued on next page</span>
+</#if>
 <#if !l_has_next>
     <table class="remark">
         <tr>
@@ -232,9 +239,8 @@
             <td>${data.remark3}</td>
         </tr>
     </table>
-
     <div style="font-weight: bold;font-size: 22px">DGM(HK) LTD</div>
-    <div style="font-weight: bold;font-size: 12px;text-decoration: overline;margin-top: 80px">Authorized Signature&Stamp</div>
+    <div style="font-weight: bold;font-size: 12px;text-decoration: overline;margin-top: 70px">Authorized Signature&Stamp</div>
 </#if>
 </div>
 </#list>
